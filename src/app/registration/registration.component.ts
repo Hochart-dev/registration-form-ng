@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { User } from '../model/User.model';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+
+
+export class Registration {
+  model: User = new User ();
+  
+ 
+
+  constructor() {
+
+   }
+
+  onSubmit(): void {
+    console.log(this.model)
   }
 
 }

@@ -1,20 +1,84 @@
-<form>
+<form (ngSubmit)="onSubmit()" #myForm="ngForm">
   <div>
-    <label for="title-order">Title</label>
-    <input name="title-order" type="text" required maxlength="5" />
+    Form submitted ? {{ myForm.submitted }}<br />
+    Form valid ? {{ myForm.valid }}<br />
+    Form invalid ? {{ myForm.valid }}<br />
   </div>
+
   <div>
-    <label for="quantity-order">Quantité</label>
-    <input name="quantity-order" type="number" required />
+    <label for="lastName">Last Name</label>
+    <input
+      name="Last Name"
+      type="text"
+      [(ngModel)]="model.lastname"
+      #lastname="ngModel"
+      required
+      minlength="5"
+      maxlength="30"
+    />
   </div>
+
+  <div *ngIf="lastname.errors && myForm.submitted == true">
+    <span *ngIf="lastname.errors?.['required']">"Last Name est requis"</span>
+    <span
+      *ngIf="lastname.errors?.['maxlength'] || lastname.errors?.['minlength']"
+      >La taille doit être comprise entre 3 et 25
+    </span>
+  </div>
+
   <div>
-    <label for="date-order">Date de commande</label>
-    <input name="date-order" type="date" required />
+    <label for="firstName">First Name</label>
+    <input
+      name="firstName"
+      type="text"
+      required
+      [(ngModel)]="model.firstname"
+      #quantity="ngModel"
+    />
   </div>
+
   <div>
-    <label for="contact-order">Contact</label>
-    <input name="contact-order" type="text" required email />
+    <label for="birthday">Birthday</label>
+    <input
+      name="date-order"
+      type="date"
+      required
+      [(ngModel)]="model.birthDay"
+    />
   </div>
-  <button type="reset">Restaurer</button>
-  <button type="submit">Sauvegarder</button>
+
+  <div>
+    <label for="contact">Contact</label>
+    <input
+      name="contact"
+      type="text"
+      required
+      email
+      [(ngModel)]="model.contact"
+    />
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input
+      name="password"
+      type="text"
+      required
+      email
+      [(ngModel)]="model.password"
+    />
+
+    <div>
+      <label for="password2">Confirm password</label>
+      <input
+        name="password2"
+        type="text"
+        required
+        email
+        [(ngModel)]="model.password2"
+      />
+    </div>
+  </div>
+  <button type="reset">Reset</button>
+  <button type="submit">Save</button>
 </form>
