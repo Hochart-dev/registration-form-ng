@@ -1,11 +1,5 @@
 <form (ngSubmit)="onSubmit()" #myForm="ngForm">
   <div>
-    Form submitted ? {{ myForm.submitted }}<br />
-    Form valid ? {{ myForm.valid }}<br />
-    Form invalid ? {{ myForm.valid }}<br />
-  </div>
-
-  <div>
     <label for="lastName">Last Name</label>
     <input
       name="Last Name"
@@ -18,22 +12,16 @@
     />
   </div>
 
-  <div *ngIf="lastname.errors && myForm.submitted == true">
-    <span *ngIf="lastname.errors?.['required']">"Last Name est requis"</span>
-    <span
-      *ngIf="lastname.errors?.['maxlength'] || lastname.errors?.['minlength']"
-      >La taille doit être comprise entre 3 et 25
-    </span>
-  </div>
-
   <div>
     <label for="firstName">First Name</label>
     <input
       name="firstName"
       type="text"
-      required
       [(ngModel)]="model.firstname"
-      #quantity="ngModel"
+      #firstname="ngModel"
+      required
+      minlength="5"
+      maxlength="30"
     />
   </div>
 
@@ -42,8 +30,9 @@
     <input
       name="date-order"
       type="date"
+      [(ngModel)]="model.birthday"
+      #birthday="ngModel"
       required
-      [(ngModel)]="model.birthDay"
     />
   </div>
 
@@ -54,6 +43,7 @@
       type="text"
       required
       email
+      #contact="ngModel"
       [(ngModel)]="model.contact"
     />
   </div>
@@ -63,9 +53,9 @@
     <input
       name="password"
       type="text"
-      required
-      email
+      #password="ngModel"
       [(ngModel)]="model.password"
+      required
     />
 
     <div>
@@ -74,11 +64,52 @@
         name="password2"
         type="text"
         required
-        email
+        #password2="ngModel"
         [(ngModel)]="model.password2"
       />
     </div>
   </div>
   <button type="reset">Reset</button>
-  <button type="submit">Save</button>
+  <button class="btn btn-primary" type="submit">Save</button>
 </form>
+<hr />
+
+<!-- ERROR PARAMETERS:  -->
+
+<div>
+  Form submitted ? {{ myForm.submitted }}<br />
+  Form valid ? {{ myForm.valid }}<br />
+  Form invalid ? {{ myForm.valid }}<br />
+</div>
+
+<div *ngIf="lastname.errors && myForm.submitted == true">
+  <span *ngIf="lastname.errors?.['required']">"Last Name est requis"</span>
+  <span *ngIf="lastname.errors?.['maxlength'] || lastname.errors?.['minlength']"
+    >Le nombre de caractéres doit être comprise entre 3 et 25
+  </span>
+</div>
+
+<div *ngIf="firstname.errors && myForm.submitted == true">
+  <span *ngIf="firstname.errors?.['required']">"First Name est requis"</span>
+  <span
+    *ngIf="firstname.errors?.['maxlength'] || firstname.errors?.['minlength']"
+    >Le nombre de caractéres doit être comprise entre 3 et 25
+  </span>
+</div>
+
+<div *ngIf="birthday.errors && myForm.submitted == true">
+  <span *ngIf="birthday.errors?.['required']">"Birthday est requis"</span>
+</div>
+
+<div *ngIf="contact.errors && myForm.submitted == true">
+  <span *ngIf="contact.errors?.['required']">"Contact est requis"</span>
+  <span *ngIf="contact.errors?.['email']">"le mail doit etre valide"</span>
+</div>
+
+<div *ngIf="password.errors && myForm.submitted == true">
+  <span *ngIf="password.errors?.['required']">"Password est requis"</span>
+</div>
+
+<div *ngIf="password2.errors && myForm.submitted == true">
+  <span *ngIf="password2.errors?.['required']">"password2 est requis"</span>
+</div>
